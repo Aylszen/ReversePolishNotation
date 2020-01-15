@@ -26,18 +26,19 @@ public class Utility {
 				stack.push(charElement);
 			} else if (charElement == ')') {
 				while (stack.peek() != '(') {
-					postfix += stack.pop();
+					postfix += " " + stack.pop();
 				}
 				stack.pop();
 			} else {
 				while (!stack.isEmpty() && getPriority(stack.peek()) >= getPriority(charElement)) {
-					postfix += stack.pop();
+					postfix += " " + stack.pop();
 				}
 				stack.push(charElement);
+				postfix += " ";
 			}
 		}
 		while (!stack.isEmpty()) {
-			postfix += stack.pop();
+			postfix += " " + stack.pop();
 		}
 		return postfix;
 	}
