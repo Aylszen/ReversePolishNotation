@@ -1,19 +1,19 @@
 import java.util.*;
 
 class Stack {
-	private int arr[];
+	private char arr[];
 	private int top;
 	private int capacity;
 
 	// Constructor to initialize stack
 	Stack(int size) {
-		arr = new int[size];
+		arr = new char[size];
 		capacity = size;
 		top = -1;
 	}
 
 	// Utility function to add an element x in the stack
-	public void push(int x) {
+	public void push(char x) {
 		if (isFull()) {
 			System.out.println("OverFlow\nProgram Terminated\n");
 			System.exit(1);
@@ -24,7 +24,7 @@ class Stack {
 	}
 
 	// Utility function to pop top element from the stack
-	public int pop() {
+	public char pop() {
 		// check for stack underflow
 		if (isEmpty()) {
 			System.out.println("UnderFlow\nProgram Terminated");
@@ -38,13 +38,13 @@ class Stack {
 	}
 
 	// Utility function to return top element in a stack
-	public int peek() {
+	public char peek() {
 		if (!isEmpty())
 			return arr[top];
 		else
 			System.exit(1);
 
-		return -1;
+		return ' ';
 	}
 
 	// Utility function to return the size of the stack
@@ -60,28 +60,5 @@ class Stack {
 	// Utility function to check if the stack is full or not
 	public Boolean isFull() {
 		return top == capacity - 1;
-	}
-
-	public static void main(String[] args) {
-		Stack stack = new Stack(3);
-
-		stack.push(1); // Inserting 1 in the stack
-		stack.push(2); // Inserting 2 in the stack
-
-		stack.pop(); // removing the top 2
-		stack.pop(); // removing the top 1
-
-		stack.push(3); // Inserting 3 in the stack
-
-		System.out.println("Top element is: " + stack.peek());
-		System.out.println("Stack size is " + stack.size());
-
-		stack.pop(); // removing the top 3
-
-		// check if stack is empty
-		if (stack.isEmpty())
-			System.out.println("Stack Is Empty");
-		else
-			System.out.println("Stack Is Not Empty");
 	}
 }
