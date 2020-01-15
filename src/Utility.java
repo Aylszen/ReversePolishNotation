@@ -1,14 +1,13 @@
+import java.util.ArrayList;
+import java.util.List;
 
 public class Utility {
 	static String infix;
 	static String postfix;
-	static Stack stack;
-	static int stackSize = 100;
 
 	public void initialize() {
 		infix = new String();
 		postfix = new String();
-		stack = new Stack(stackSize);
 	}
 
 	public static String convertToPostfix(String infix) {
@@ -19,34 +18,40 @@ public class Utility {
 		}
 
 		Stack stack = new Stack(100);
-		for (char charElement : infixCharTable) {
-			if (isNumber(charElement)) {
-				postfix += charElement;
-			} else if (charElement == '(') {
+		for (int i = 0; i < infixCharTable.length; i++) {
+			;
+			if (isNumber(infixCharTable[i])) {
+				postfix += infixCharTable[i];
+			} else if (infixCharTable[i] == '(') {
 				if (!postfix.isEmpty() && isNumber(postfix.charAt(postfix.length() - 1))) {
 					stack.push('*');
 					postfix += " ";
 				}
-				stack.push(charElement);
-			} else if (charElement == ')') {
+				stack.push(infixCharTable[i]);
+			} else if (infixCharTable[i] == ')') {
 				while (stack.peek() != '(') {
 					postfix += " " + stack.pop();
 				}
 				stack.pop();
-			} else if ((postfix.isEmpty() && charElement == '-')
-					|| (!postfix.isEmpty() && charElement == '-' && getPriority(stack.peek()) < 4)) {
+			} else if ((postfix.isEmpty() && infixCharTable[i] == '-')
+					|| (!postfix.isEmpty() && infixCharTable[i] == '-' && !stack.isEmpty()
+							&& getPriority(stack.peek()) < 4) && !isNumber(infixCharTable[i - 1])) {
 				postfix += '-';
 			} else {
-				while (!stack.isEmpty() && getPriority(stack.peek()) >= getPriority(charElement)) {
+				while (!stack.isEmpty() && getPriority(stack.peek()) >= getPriority(infixCharTable[i])) {
 					postfix += " " + stack.pop();
 				}
-				stack.push(charElement);
+				stack.push(infixCharTable[i]);
 				postfix += " ";
 			}
 		}
+
 		while (!stack.isEmpty()) {
 			postfix += " " + stack.pop();
+			System.out.println("While 3");
 		}
+		System.out.println("ESsfaf: " + postfix);
+
 		return postfix;
 	}
 
@@ -71,4 +76,16 @@ public class Utility {
 		}
 	}
 
+	public static boolean isInputDataCorrect(String infix) {
+		char[] infixCharTable = infix.toCharArray();
+		if (infixCharTable == null || infixCharTable.length == 0) {
+			return false;
+		}
+		for (char charElement : infixCharTable) {
+			if (!isNumber(charElement) && getPriority(charElement) >= 4 && charElement != ')') {
+				return false;
+			}
+		}
+		return true;
+	}
 }
