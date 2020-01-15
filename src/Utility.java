@@ -1,5 +1,3 @@
-import java.util.ArrayList;
-import java.util.List;
 
 public class Utility {
 	static String infix;
@@ -19,7 +17,6 @@ public class Utility {
 
 		Stack stack = new Stack(100);
 		for (int i = 0; i < infixCharTable.length; i++) {
-			;
 			if (isNumber(infixCharTable[i])) {
 				postfix += infixCharTable[i];
 			} else if (infixCharTable[i] == '(') {
@@ -48,10 +45,7 @@ public class Utility {
 
 		while (!stack.isEmpty()) {
 			postfix += " " + stack.pop();
-			System.out.println("While 3");
 		}
-		System.out.println("ESsfaf: " + postfix);
-
 		return postfix;
 	}
 

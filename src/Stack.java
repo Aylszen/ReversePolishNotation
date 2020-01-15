@@ -1,5 +1,3 @@
-import java.util.*;
-
 class Stack {
 	private char arr[];
 	private int top;
