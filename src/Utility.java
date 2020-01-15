@@ -23,12 +23,19 @@ public class Utility {
 			if (isNumber(charElement)) {
 				postfix += charElement;
 			} else if (charElement == '(') {
+				if (!postfix.isEmpty() && isNumber(postfix.charAt(postfix.length() - 1))) {
+					stack.push('*');
+					postfix += " ";
+				}
 				stack.push(charElement);
 			} else if (charElement == ')') {
 				while (stack.peek() != '(') {
 					postfix += " " + stack.pop();
 				}
 				stack.pop();
+			} else if ((postfix.isEmpty() && charElement == '-')
+					|| (!postfix.isEmpty() && charElement == '-' && getPriority(stack.peek()) < 4)) {
+				postfix += '-';
 			} else {
 				while (!stack.isEmpty() && getPriority(stack.peek()) >= getPriority(charElement)) {
 					postfix += " " + stack.pop();
